@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import TaskInput from "./components/TaskInput";
+import ListItem from "./components/ListItem";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -19,11 +20,7 @@ export default function App() {
       <TaskInput addTask={addTask} />
       <FlatList
         data={items}
-        renderItem={(itemData) => (
-          <View style={styles.listItem}>
-            <Text style={styles.item}> {itemData.item.value} </Text>
-          </View>
-        )}
+        renderItem={(itemData) => <ListItem item={itemData.item.value} />}
       />
     </View>
   );
@@ -44,16 +41,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     width: "80%",
     borderBottomWidth: 1,
-    fontSize: 20,
-  },
-  listItem: {
-    backgroundColor: "#000",
-    padding: 10,
-    marginVertical: 6,
-    borderRadius: 10,
-  },
-  item: {
-    color: "#fff",
     fontSize: 20,
   },
 });
