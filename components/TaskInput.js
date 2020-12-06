@@ -1,36 +1,51 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View, Button } from "react-native";
+import { StyleSheet, TextInput, View, Button, Modal, Text } from "react-native";
 
-const TaskInput = ({ addTask }) => {
+const TaskInput = ({ addTask, isVisible }) => {
   const [task, setTask] = useState("");
   const textInputHandler = (text) => {
     setTask(text);
   };
+  const addTaskHandler = () => {
+    addTask(task);
+    setTask("");
+  };
   return (
-    <View style={styles.row}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Enter a task"
-        onChangeText={textInputHandler}
-        value={task}
-      />
-      <Button onPress={() => addTask(task)} title="Add" />
-    </View>
+    <Modal visible={isVisible} animationType="slide">
+      <View style={styles.row}>
+        <Text style={styles.title}>Create a new task</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Enter a task"
+          onChangeText={textInputHandler}
+          value={task}
+        />
+        <Button onPress={addTaskHandler} title="Add" />
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    color: "#fff",
+    fontSize: 33,
+    marginBottom: 25,
+    fontWeight: "bold",
+  },
   textInput: {
-    borderBottomColor: "black",
+    borderBottomColor: "#fff",
     width: "80%",
     borderBottomWidth: 1,
-    fontSize: 20,
+    fontSize: 25,
+    color: "#fff",
+    marginBottom: 20,
   },
   row: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.7)",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginBottom: 20,
   },
 });
