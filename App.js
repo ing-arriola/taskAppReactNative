@@ -1,42 +1,22 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import TaskInput from "./components/TaskInput";
 
 export default function App() {
-  const [task, setTask] = useState("");
   const [items, setItems] = useState([]);
 
-  const textInputHandler = (text) => {
-    setTask(text);
-  };
-
-  const addTask = () => {
+  const addTask = (enteredTask) => {
     let index = items.length + 1;
     setItems((currentItems) => [
       ...currentItems,
-      { key: index.toString(), value: task },
+      { key: index.toString(), value: enteredTask },
     ]);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Enter a task"
-          onChangeText={textInputHandler}
-          value={task}
-        />
-        <Button onPress={addTask} title="Add" />
-      </View>
+      <Text style={styles.title}>JAIME ARRIOLA TASK LIST APP</Text>
+      <TaskInput addTask={addTask} />
       <FlatList
         data={items}
         renderItem={(itemData) => (
@@ -54,17 +34,17 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 30,
   },
-  row: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "space-between",
+  title: {
+    fontSize: 22,
+    textAlign: "center",
     marginBottom: 20,
   },
+
   textInput: {
     borderBottomColor: "black",
     width: "80%",
     borderBottomWidth: 1,
+    fontSize: 20,
   },
   listItem: {
     backgroundColor: "#000",
@@ -74,5 +54,6 @@ const styles = StyleSheet.create({
   },
   item: {
     color: "#fff",
+    fontSize: 20,
   },
 });
